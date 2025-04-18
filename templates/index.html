@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfometer s filtrami</title>
+</head>
+<body>
+    <h1>Filtrovanie firiem</h1>
+    <form method="POST">
+        <label>Kraj:</label>
+        <select name="kraj">
+            <option value="">--</option>
+            {% for k in kraje %}
+                <option value="{{ k }}">{{ k }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label>Odvetvie:</label>
+        <select name="odvetvie">
+            <option value="">--</option>
+            {% for o in odvetvia %}
+                <option value="{{ o }}">{{ o }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label>Zamestnanci:</label>
+        <select name="zamestnanci">
+            <option value="">--</option>
+            {% for z in zamestnanci %}
+                <option value="{{ z }}">{{ z }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label>Tržby (napr. 0-5000000):</label>
+        <input type="text" name="trzby"><br><br>
+
+        <label>Vyber firmy:</label><br>
+        {% for f in firmy %}
+            <input type="checkbox" name="firmy" value="{{ f }}"
+                   {% if selected_firmy and f in selected_firmy %}checked{% endif %}> {{ f }}<br>
+        {% endfor %}
+
+        <br><button type="submit" name="action" value="Porovnaj vybrané firmy">Porovnaj vybrané firmy</button>
+    </form>
+
+    {% if tachometer_html %}
+        <h2>Porovnanie firiem</h2>
+        {{ tachometer_html|safe }}
+    {% endif %}
+</body>
+</html>
